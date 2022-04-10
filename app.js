@@ -18,7 +18,7 @@ function startApp() {
     // Init web3
     web3 = new Web3(web3Provider)
     // Create contract instance
-    fetch("../build/DGLDonation.json").then((response) => {
+    fetch("./build/DGLDonation.json").then((response) => {
         // Parse data to json
         response.json().then((data) => {
             // Create instance with ABI and address
