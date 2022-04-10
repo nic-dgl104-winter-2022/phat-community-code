@@ -68,6 +68,7 @@ It takes few seconds.
 <br>
 
 The transaction is successfully made.
+
 <img src="./images/done.png">
 <br>
 
