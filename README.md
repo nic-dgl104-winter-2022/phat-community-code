@@ -88,3 +88,35 @@ app.js | Get data and send transaction
 index.html | Main webpage
 
 ## Code description
+### Contract
+I define two struct types to represent Donation and Withdraw transactions. In particular, each donation contains information about the donator, the amount of ETH, the message, and the timestamp. On the other hand, any withdrawal has a message, amount of ETH, and timestamp.
+```solidity
+  struct Donation {
+      uint id;
+      address owner;
+      string message;
+      uint amount;
+      uint timestamp;
+  }
+  Donation[] public donations;
+
+  struct WithdrawRecord {
+      uint id;
+      string message;
+      uint amount;
+      uint timestamp;
+  }
+  WithdrawRecord[] public withdrawRecords;
+```
+
+I declare two arrays to record donations and withdrawals. However, I also define two counters to keep track of their length. In addition, the client can use this variable to get data while using the loop.
+
+Ethereum uses ETH as a native token for transferring between wallets. However, it is divided into different units. 
+
+- 1 ETH = 1e18 wei
+- 1 ETH = 1e9 Gwei
+
+In addition, the donators will receive points if their donation is equal to or greater than 1 Gwei. In other words, 1 point equals 1 Gwei in this contract. The idea of having relevant points is to make an extension on this project, like buying stickers or badges.
+
+### Javascript
+For the Javascript code, I use a library like Web3.js to convert values between units in ETH. Furthermore, I interact with MetaMask to handle the confirmation before sending a transaction.
