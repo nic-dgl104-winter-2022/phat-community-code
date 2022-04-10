@@ -7,7 +7,7 @@ import "./SafeMath.sol";
 using SafeMath for uint256;
 
 contract DGLDonation is Ownable {
-    uint pointRate = 1e9; // 1 point = 1 Gwei
+    uint public pointRate = 1e9; // 1 point = 1 Gwei
     mapping (address => uint) public userToPoints;
 
     event newDonation(address _donator, string _message, uint _amount, uint timestamp);
@@ -20,6 +20,7 @@ contract DGLDonation is Ownable {
         uint timestamp;
     }
     Donation[] public donations;
+    uint public donationCounter;
 
     struct WithdrawRecord {
         uint id;
@@ -28,6 +29,7 @@ contract DGLDonation is Ownable {
         uint timestamp;
     }
     WithdrawRecord[] public withdrawRecords;
+    uint public withdrawCounter;
 
     mapping (uint => uint) donationIdToIndex; // Keep track of "donations" indexes
     mapping (uint => uint) withdrawIdToIndex; // Keep track of "withdrawRecords" indexes
@@ -52,6 +54,7 @@ contract DGLDonation is Ownable {
             userToPoints[msg.sender] = msg.value.div(pointRate);
         }
 
+        donationCounter++;
         emit newDonation(msg.sender, _message, amount, timestamp);
         return (randomId, userToPoints[msg.sender]);
     }
@@ -82,6 +85,7 @@ contract DGLDonation is Ownable {
         withdrawIdToIndex[randomId] = withdrawRecords.length - 1;
 
         payable(msg.sender).transfer(_amount);
+        withdrawCounter++;
     }
 
     // Get the total values
