@@ -99,6 +99,7 @@ I define two struct types to represent Donation and Withdraw transactions. In pa
       uint timestamp;
   }
   Donation[] public donations;
+  uint public donationCounter;
 
   struct WithdrawRecord {
       uint id;
@@ -107,6 +108,7 @@ I define two struct types to represent Donation and Withdraw transactions. In pa
       uint timestamp;
   }
   WithdrawRecord[] public withdrawRecords;
+  uint public withdrawCounter;
 ```
 
 I declare two arrays to record donations and withdrawals. However, I also define two counters to keep track of their length. In addition, the client can use this variable to get data while using the loop.
