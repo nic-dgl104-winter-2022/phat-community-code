@@ -1,13 +1,16 @@
 // SPDX-License-Identifier: GPL-3.0
+
 pragma solidity ^0.8.0;
 
 import "./Ownable.sol";
 import "./SafeMath.sol";
 using SafeMath for uint256;
 
-contract DGLDonationContract is Ownable {
+contract DGLDonation is Ownable {
     uint pointRate = 1e9; // 1 point = 1 Gwei
     mapping (address => uint) public userToPoints;
+
+    event newDonation(address _donator, string _message, uint _amount, uint timestamp);
 
     struct Donation {
         uint id;
@@ -49,6 +52,7 @@ contract DGLDonationContract is Ownable {
             userToPoints[msg.sender] = msg.value.div(pointRate);
         }
 
+        emit newDonation(msg.sender, _message, amount, timestamp);
         return (randomId, userToPoints[msg.sender]);
     }
 

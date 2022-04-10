@@ -17,22 +17,24 @@
     </div>
 
     <div class="row justify-content-center p-3 m-1">
-        <h3 class="text-center">
+        <p class="text-center" style="font-size: 1.7rem;">
             Total:
-            <b id="total-value">10</b>
+            <b id="total-value" class=" mx-2" style="font-size: 2.3rem;"></b>
             (ETH)
-        </h3>
+        </p>
     </div>
 
     <div class="align-items-center  p-3 m-1 d-flex flex-column">
         <div class="row m-1 align-items-center">
             <label for="amount" class="col-form-label">Amount (ETH)</label>
-            <input type="number" id="donate-amount" class="form-control" min="0" value="0">
+            <input type="number" id="donate-amount" class="form-control" min="0" value="0.0001">
         </div>
         <div class="row m-1 align-items-center">
             <label for="amount" class="col-form-label">Message</label>
-            <textarea class="form-control" id="donate-message" rows="3"></textarea>
+            <textarea class="form-control" id="donate-message" rows="3"
+                placeholder="Leave us a message here.">Hello World</textarea>
         </div>
+        <div id="donate-error" class="d-none alert alert-danger" role="alert"></div>
         <div class="row m-2">
             <button id="donate-button" type="submit" class="btn btn-primary btn-lg">Donate</button>
         </div>
@@ -45,10 +47,12 @@
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
                             <a id="donation-tab-link" class="nav-link active" aria-current="true"
-                                href="#donation-table">Donation</a>
+                                href="#donation-table">Donation <span id="donation-total-tx"
+                                    class="badge badge-primary">0</span></a>
                         </li>
                         <li class="nav-item">
-                            <a id="withdraw-tab-link" class="nav-link" href="#withdraw-table">Withdraw</a>
+                            <a id="withdraw-tab-link" class="nav-link" href="#withdraw-table">Withdraw <span
+                                    id="withdraw-total-tx" class="badge badge-primary">0</span></a>
                         </li>
                     </ul>
                 </div>
@@ -63,24 +67,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
                         </tbody>
                     </table>
 
@@ -94,24 +80,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -133,13 +101,17 @@
     <script>
         const donationTable = document.getElementById("donation-table")
         const withdrawTable = document.getElementById("withdraw-table")
-        $("#donation-tab-link").click(() => {
+        $("#donation-tab-link").click(e => {
             withdrawTable.classList.add("d-none")
             donationTable.classList.remove("d-none")
+            $("#withdraw-tab-link").removeClass("active")
+            $("#donation-tab-link").addClass("active")
         })
-        $("#withdraw-tab-link").click(() => {
+        $("#withdraw-tab-link").click(e => {
             donationTable.classList.add("d-none")
             withdrawTable.classList.remove("d-none")
+            $("#withdraw-tab-link").addClass("active")
+            $("#donation-tab-link").removeClass("active")
         })
     </script>
 </body>
